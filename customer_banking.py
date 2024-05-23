@@ -3,6 +3,27 @@ from savings_account import create_savings_account
 from cd_account import create_cd_account
 
 
+def non_negative_input(prompt: str) -> float:
+    """
+    Prompt the user to enter a non-negative number.
+
+    Args:
+        prompt (str): The prompt to display to the user.
+
+    Returns:
+        float: The non-negative number entered by the user.
+    """
+    while True:
+        try:
+            value = float(input(prompt))
+            if value >= 0:
+                return value
+            else:
+                print("Please enter a non-negative number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+
 def prompt_user_for_account_info(account_type: str):
     """
     Prompt the user to enter the account balance, interest rate, and length of months for the given account type.
@@ -17,13 +38,13 @@ def prompt_user_for_account_info(account_type: str):
         'months': (int)
     """
     # Prompt the user to enter the account balance
-    balance = float(input(f"Enter the {account_type} account balance: "))
+    balance = float(non_negative_input(f"Enter the {account_type} account balance: "))
 
     # Prompt the user to enter the interest rate
-    interest_rate = float(input(f"Enter the {account_type} account APR: "))
+    interest_rate = float(non_negative_input(f"Enter the {account_type} account APR: "))
 
     # Prompt the user to enter the length of months
-    months = int(input(f"Enter the {account_type} account maturity in months: "))
+    months = int(non_negative_input(f"Enter the {account_type} account maturity in months: "))
 
     return {'balance': balance, 'interest_rate': interest_rate, 'months': months}
 
@@ -59,12 +80,12 @@ def main():
 
         # Call the appropriate create account function and pass the variables from the user.
         if account_type == "Savings":
-            updated_balance, interest_earned = create_savings_account(**input_dict)
+            response_dict = create_savings_account(**input_dict)
         else:
-            updated_balance, interest_earned = create_cd_account(**input_dict)
+            response_dict = create_cd_account(**input_dict)
 
         # Print out the interest earned and updated account balance with interest earned for the given months.
-        print_interest_and_balance(account_type, interest_earned, updated_balance, input_dict['months'])
+        print_interest_and_balance(**response_dict)
 
 
 if __name__ == "__main__":
