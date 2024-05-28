@@ -38,7 +38,7 @@ def prompt_user_for_account_info(account_type: str):
         'months': (int)
     """
     # Prompt the user to enter the account balance
-    balance: float = non_negative_input(f"Enter the {account_type} account balance: ") 
+    balance: float = non_negative_input(f"Enter the {account_type} account balance: ")
 
     # Prompt the user to enter the interest rate
     interest_rate: float = non_negative_input(f"Enter the {account_type} account APR: ")
@@ -69,7 +69,7 @@ def print_interest_and_balance(account_type: str, interest_earned: float, update
 
 # Define the main function
 def main():
-    """This function prompts the user to enter the savings and cd account balance, 
+    """This function prompts the user to enter the savings and cd account balance,
     interest rate, and the length of months to determine the interest gained.
     It displays the interest earned on the savings and CD accounts and updates the balances.
     """
